@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+  
+header{
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 10px 0px;
+}
+
+.navbar span{
+    margin-left: 10px;
+    font-size: 25px;
+    font-weight: 600;
+    color: cornflowerblue;
+}
+
+.collapse a{
+    font-weight: 600;
+    color: deepskyblue;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main h1{
+    font-weight: 700;
+    color: cornflowerblue;
+}
+
+main .card{
+    width: 30%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: none;
+    margin-bottom: 200px;
+}
+
+main .card-body{
+    border: 1px solid lightsteelblue;
+    border-radius: 10px;
+}
+
+main .form{
+    margin: 20px;
+}
+
+main .form .card-body div{
+    margin: 15px 0;
+}
+ 
+
+main .card .form button{
+    font-size: 15px;
+    font-weight: 500;
+    background-color: cornflowerblue;
+}
+
+main .paket{
+    margin: 20px;
+}
+
+.paket .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.paket .gallery .dm { 
+    width: 100%; 
+    border: 1px solid #ddd;
+    border-radius: 8px; 
+    color: lightskyblue;
+    font-weight: 600; 
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+
+.dm input[type="radio"] {
+    display: none;
+}
+
+.dm input[type="radio"]:checked + p {
+    background-color: #cce5ff;
+    border-color: #007bff;
+    color: white; 
+}
+
+.dm p {  
+    width: 100%;   
+    margin: 0;
+    padding: 10px;
+    border-radius: 8px; 
+}
+
+.dm:hover {
+    background-color: #e0e0e0;
+}
+
+.paket .gallery .dm p { 
+    font-size: 18px;
+}
+.paket .gallery .dm p span{ 
+    font-size: 15px;
+}
+
+main .wa{
+    margin: 20px;
+}
+
+main .wa button{
+    font-size: 15px;
+    font-weight: 500;
+    background-color: cornflowerblue;
+}
+
+main .wa .card-body div{
+    margin: 15px 0;
+}
+
+@media screen and (max-width: 768px) {
+    header .navbar .collapse{
+        display: none;
+    }
+
+    main{
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+    main .card{
+        width: 100%;
+    }
+    
+    .paket .gallery {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, auto);
+        grid-gap: 10px;
+        width: 100%;
+        max-width: 1200px; 
+    }
+}

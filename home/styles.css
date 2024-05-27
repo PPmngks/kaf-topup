@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+body {
+    font-family: Arial, Helvetica, sans-serif; 
+}
+  
+header{
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 10px 0px; 
+}
+
+.navbar span{
+    margin-left: 10px;
+    font-size: 25px;
+    font-weight: 600;
+    color: cornflowerblue;
+}
+
+.collapse a{
+    font-weight: 600;
+    color: deepskyblue;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main .about{
+    display: flex;
+    flex-direction: row;
+    margin: 100px 0;
+}
+
+main .about img {
+     display: block;
+  }
+ 
+main section h1{
+    font-weight: 700;
+    color: cornflowerblue;
+}
+
+main section p{
+    width: 80%;
+}
+
+main .about button{ 
+    font-size: 15px;
+    font-weight: 500;
+    background-color: cornflowerblue;
+}
+
+main .about ul{
+    display: flex;
+    flex-direction: row; 
+    margin-left: -30px;
+}
+
+main .about ul li{
+    list-style: none;
+    margin-right: 20px;
+}
+
+main .about ul li h5 span{
+    color: deepskyblue;
+    
+}
+
+main .game{
+    margin: 100px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main .game p{
+    text-align: center;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.gallery .card {
+    width: 100%;
+    overflow: hidden;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    
+}
+
+.gallery .card h5 span{
+    font-size: 13px;
+    color: red;
+}
+
+.gallery .card a{
+    text-decoration: none;
+    text-transform: none;
+    color: black;
+}
+ 
+
+.gallery .card a img {
+    width: 100%; 
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.review-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+main .review{
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main .review p{
+    text-align: center;
+}
+
+.review-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+ 
+.review-content h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.review-content p {
+    width: 100%;
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.rating {
+    font-size: 1.2em;
+    color: #f39c12;
+}
+
+main .social{
+    margin: 200px 0 100px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main .social a{
+    text-decoration: none;
+    text-transform: none;
+    color: black;
+}
+
+main .social i{
+    font-size: 50px;
+    margin: 0 20px;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    main .about div{
+        padding: 20px;
+    }
+    
+    main .about img{
+        display: none;
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, auto);
+        grid-gap: 10px;
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px;
+    }
+}
