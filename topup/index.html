@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
-
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg">
             <a class="nav-link" href="../home/index.html"><span class="navbar-brand mb-0 h1">KAF Topup</span></a>
-          
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -21,6 +19,9 @@
                 </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="../topup/index.html">Topup</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="../profil/index.html">Profile</a>
                 </li>
             </div>
           </nav>
@@ -36,56 +37,26 @@
                     <div class="card-body">
                         <h5>Input ID</h5>
                         <div class="form-group"> 
-                            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="User ID">
+                            <input type="number" class="form-control" id="userId" placeholder="User ID">
                         </div>
                         <div class="form-group"> 
-                            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Server ID">
+                            <input type="number" class="form-control" id="serverId" placeholder="Server ID">
                         </div>
-                        
-                        <button type="button" class="btn btn-primary btn-lg">Check</button>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="checkID()">Check</button>
+                        <div id="nickname-card" class="card-nick" style="display: none;">
+                            <div class="card-body">
+                                <h5 class="card-title">Nickname</h5>
+                                <p class="card-text" id="nickname"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="paket">
                     <div class="card-body">
                         <h5>Pilih Diamond</h5>
-                        <div class="gallery">
-                            <label class="dm">
-                                <input type="radio" name="diamond" value="8 DM">
-                                <p>8 DM <br> <span>Rp.5.000</span></p>
-                            </label>
-                            <label class="dm">
-                                <input type="radio" name="diamond" value="15 DM">
-                                <p>15 DM <br> <span>Rp.18.000</span></p>
-                            </label>
-                            <label class="dm">
-                                <input type="radio" name="diamond" value="24 DM">
-                                <p>24 DM <br> <span>Rp.30.000</span></p>
-                            </label>
-                            <label class="dm">
-                                <input type="radio" name="diamond" value="35 DM">
-                                <p>35 DM <br> <span>Rp.50.000</span></p>
-                            </label>
-                            <label class="dm">
-                                <input type="radio" name="diamond" value="50 DM">
-                                <p>50 DM <br> <span>Rp.70.000</span></p>
-                            </label>
-                            <label class="dm">
-                                <input type="radio" name="diamond" value="100 DM">
-                                <p>100 DM <br> <span>Rp.120.000</span></p>
-                            </label>
-                            <label class="dm">
-                                <input type="radio" name="diamond" value="250 DM">
-                                <p>250 DM <br> <span>Rp.300.000</span></p>
-                            </label>
-                            <label class="dm">
-                                <input type="radio" name="diamond" value="500 DM">
-                                <p>500 DM <br> <span>Rp.800.000</span></p>
-                            </label>
-                            <label class="dm">
-                                <input type="radio" name="diamond" value="1000 DM">
-                                <p>1000 DM <br> <span>Rp.1.200.000</span></p>
-                            </label>
+                        <div class="gallery" id="diamond-options">
+                            <!-- Diamond options will be populated here -->
                         </div>
                     </div>
                 </div>
@@ -94,15 +65,157 @@
                     <div class="card-body">
                         <h5>Nomor WA</h5>
                         <div class="form-group"> 
-                            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nomor Whatsapp"> 
-                          </div> 
-                          <button type="submit" class="btn btn-primary">Pesan</button>
+                            <input type="number" class="form-control" id="whatsapp" placeholder="Nomor Whatsapp"> 
+                          </div>
                     </div>
                 </div>
+
+                <div class="payment-method">
+                    <div class="card-body">
+                        <h5>Metode Pembayaran</h5>
+                        <div class="form-group">
+                            <select class="form-control" id="paymentMethod">
+                                <option value="Qris">Qris</option>
+                                <!-- Anda dapat menambahkan opsi metode pembayaran lainnya di sini -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" onclick="saveData()">Pesan</button>
             </div>
         </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        let nickname = '';
+
+        async function checkID() {
+            const userId = document.getElementById('userId').value;
+            const serverId = document.getElementById('serverId').value;
+            const formattedId = `${userId}(${serverId})`;
+            const signature = '757986eba61db18cf15934d22eb096b4'; // Signature dari API
+            const apiURL = `https://v1.apigames.id/merchant/M240618ZHLA4053LH/cek-username/mobilelegend?user_id=${formattedId}&signature=${signature}`;
+
+            try {
+                const response = await fetch(apiURL);
+                const data = await response.json();
+
+                if (data && data.data && data.data.username) {
+                    nickname = data.data.username;
+                    document.getElementById('nickname').innerText = nickname;
+                    document.getElementById('nickname-card').style.display = 'block';
+                } else {
+                    nickname = 'Nickname tidak ditemukan';
+                    document.getElementById('nickname').innerText = nickname;
+                    document.getElementById('nickname-card').style.display = 'block';
+                }
+            } catch (error) {
+                nickname = 'Error: ' + error.message;
+                document.getElementById('nickname').innerText = nickname;
+                document.getElementById('nickname-card').style.display = 'block';
+            }
+        }
+
+        async function loadDiamonds(gameId) {
+            const apiURL = `http://127.0.0.1:8000/api/products/game/${gameId}`;
+            try {
+                const response = await fetch(apiURL);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                if (data.success) {
+                    const diamondOptions = document.getElementById('diamond-options');
+                    diamondOptions.innerHTML = '';
+                    data.data.forEach(item => {
+                        const label = document.createElement('label');
+                        label.className = 'dm';
+                        label.innerHTML = `
+                            <input type="radio" name="diamond" value="${item.id}">
+                            <p>${item.name} <br> <span>Rp.${item.price.toLocaleString()}</span></p>
+                        `;
+                        diamondOptions.appendChild(label);
+                    });
+                } else {
+                    console.error('Error fetching diamond data:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching diamond data:', error);
+            }
+        }
+
+        function saveData() {
+            const userId = document.getElementById('userId').value;
+            const serverId = document.getElementById('serverId').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const diamond = document.querySelector('input[name="diamond"]:checked').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+
+            const data = {
+                global_id: userId,
+                server: serverId,
+                phone: whatsapp,
+                product_id: diamond,
+                vendor: paymentMethod
+            };
+
+            // Mendapatkan riwayat topup dari localStorage
+            const topupHistory = JSON.parse(localStorage.getItem('topupHistory')) || [];
+
+            // Menambahkan data baru ke riwayat
+            topupHistory.push(data);
+
+            // Menyimpan kembali ke localStorage
+            localStorage.setItem('topupHistory', JSON.stringify(topupHistory));
+ 
+            sendDataToAPI(data);
+        }
+
+        async function sendDataToAPI(data) {
+            const apiURL = 'http://127.0.0.1:8000/api/transactions/game';
+            try {
+                const response = await fetch(apiURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    console.log('Data berhasil dikirim ke API:', result);
+                } else {
+                    console.error('Error mengirim data ke API:', result);
+                }
+            } catch (error) {
+                console.error('Error mengirim data ke API:', error);
+            }
+        }
+
+        // Load diamond options when the page loads
+        const currentUrl = window.location.href;
+        // Create a URL object
+        const url = new URL(currentUrl);
+        const params = new URLSearchParams(url.search);
+
+        // Get the value of the 'game' parameter
+        const gameId = params.get('gameid');
+        document.addEventListener('DOMContentLoaded', loadDiamonds(gameId));
+
+        document.addEventListener('DOMContentLoaded', function() {
+    loadDiamonds(gameId);
+    adjustFormBasedOnGame(gameId);
+});
+
+async function adjustFormBasedOnGame(gameId) {
+    if (gameId === '9c4265f8-f02f-4589-a4d2-df5ba4e74630' || gameId === '9c4265f8-969e-4972-83e8-77aba72d2b6a') {
+        // Hide server ID input
+        document.getElementById('serverId').parentNode.style.display = 'none';
+    }
+}
+    </script>
 </body>
 </html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <a class="nav-link" href="../home/index.html"><span class="navbar-brand mb-0 h1">KAF Topup</span></a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="../home/index.html">Home</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="../topup/index.html">Topup</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="../profil/index.html">Profile</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <button class="btn btn-danger ml-auto" onclick="logout()">Logout</button>
+            </div>
+          </nav>
+    </header>
+
+    <main>
+        <h1>Profile</h1>
+        <h2>Riwayat Top-up</h2>
+        <div id="topupHistory"></div>
+        <button class="btn btn-warning" onclick="clearHistory()">Clear History</button><br>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTopupHistory();
+        });
+
+        function loadTopupHistory() {
+            const topupHistory = JSON.parse(localStorage.getItem('topupHistory')) || [];
+            const topupHistoryContainer = document.getElementById('topupHistory');
+
+            topupHistoryContainer.innerHTML = '';
+
+            if (topupHistory.length === 0) {
+                topupHistoryContainer.innerHTML = '<p>Belum ada riwayat top-up.</p>';
+            } else {
+                topupHistory.forEach(topup => {
+                    const topupElement = document.createElement('div');
+                    topupElement.classList.add('card', 'mb-3');
+                    topupElement.innerHTML = `
+                        <div class="card-body">
+                          <p class="card-text"><strong>Game</strong>: Mobile Legends: Bang Bang</p>
+                          <p class="card-text"><strong>User ID</strong>: ${topup.global_id}(${topup.server})</p>
+                          <p class="card-text"><strong>WhatsApp</strong>: ${topup.phone}</p>
+                          <p class="card-text"><strong>Product ID</strong>: ${topup.product_id}</p>
+                          <p class="card-text"><strong>Vendor</strong>: ${topup.vendor}</p>
+                      </div>
+                    `;
+                    topupHistoryContainer.appendChild(topupElement);
+                });
+            }
+        }
+
+        function clearHistory() {
+            localStorage.removeItem('topupHistory');
+            loadTopupHistory();
+        }
+
+        function logout() {
+            // Membersihkan data yang terkait dengan sesi pengguna
+            localStorage.removeItem('user');
+            // Alihkan pengguna ke laman login
+            window.location.href = '../login/index.html';
+        }
+    </script>
+</body>
+</html>
